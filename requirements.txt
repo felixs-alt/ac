@@ -1,4 +1,4 @@
-aiohttp==3.8.3
+aiohttp
 colorama==0.4.6
 pydub==0.25.1
 python-dotenv==1.0.0

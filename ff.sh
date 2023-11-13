@@ -1,1 +1,0 @@
-ffmpeg -i https://cloud.oscie.net/acdp/acnh/$1/$2.mp3 -listen 1 -method GET -c copy -f MP3 http://172.18.251.55:8000/main.mp3
