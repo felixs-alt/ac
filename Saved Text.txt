@@ -1,0 +1,2 @@
+  os.system("ffmpeg -i ./files/main.mp3 -c copy -listen 1 -f MP3 "+str(sys.argv[2]))
+  os.popen(f'wget -O main.mp3 https://cloud.oscie.net/acdp/acnh/{gameweather}/{gametime}.mp3') 

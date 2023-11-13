@@ -1,0 +1,9 @@
+.env
+/files/
+out.txt
+notes.txt
+__pycache__
+list.json
+name.txt
+selection.json
+list.json
