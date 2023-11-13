@@ -4,9 +4,14 @@ from datetime import datetime
 from colorama import Fore, Style, init
 from timer_py import Timer
 from pytz import timezone
+from threading import Thread
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 import subprocess
 import pytz
+import http.server
+import socketserver
 init()
+
 load_dotenv()
 game = "Animal Crossing: New Horizons"
 def b(text: str):
@@ -32,7 +37,6 @@ timer.start()
 volume = int(os.getenv("VOLUME"))
 area = str(os.getenv("AREA"))
 roost = str(os.getenv("ROOST"))
-
 games = requests.get(f"https://cloud.oscie.net/acdp/list.json").json()
 
 
@@ -40,9 +44,7 @@ if roost == "True" and os.path.exists("./files/roost.mp3"):
     playroost = True
 else:
     playroost = False
-
-
-
+    
 
 async def videoDL(outfile, url):
     try:
@@ -53,6 +55,7 @@ async def videoDL(outfile, url):
                         f.write(data)
     except Exception as e:
         print(f"**`ERROR:`** {type(e).__name__} - {e}")
+    downloadedaudio=True
 
 
 def pocketcalc(hour:str):
@@ -80,15 +83,15 @@ async def getweather():
 
 
 async def gamecheck():
+    global downloadedaudio
     global playcount
     playcount = 0
-
 
     print("Checking for games...")
 
     
     while True:
-
+        
         if game == "Animal Crossing":
             if "snow" in sky or "Snow" in sky or "snowy" in sky or "Snowy" in sky:
                 gameweather = "snow"
@@ -117,10 +120,8 @@ async def gamecheck():
                     dir = f"./files/{gameweather}/{gametime}.mp3"
             else:
                 dir = f"./files/{gameweather}/{gametime}.mp3"
-        print(gametime)
         playcount = playcount + 1
-        os.system(f"sudo ffmpeg -i https://cloud.oscie.net/acdp/acnh/{gameweather}/{gametime}.mp3 -chunked_post 0 -c copy -f MP3 http://localhost:"+str(sys.argv[1])+"/main.mp3")
-
+        subprocess.run(["bash","ff.sh",gameweather,gametime])
 async def downloader_menu():
 
     gameslist = []
@@ -133,7 +134,7 @@ async def downloader_menu():
     for game in games['available']:
         print(f"- {g(game['shortname'])} requires ~{b(game['size'])}")
 
-    game = str(sys.argv[1])
+    game = "New Horizons"
 
     if game not in gameslist:
         print(Style.RESET_ALL + "\n'" + b(game) + "' is not a valid option. Valid options include:\n" + g(str(gameslist).replace("[", "").replace("]", "")) + "\n")
@@ -144,7 +145,6 @@ async def downloader_menu():
             gamecode = gameitem['code']
 
     await downloader_game(code=gamecode)
-
 
 async def downloader_game(code:str):
     
