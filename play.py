@@ -115,7 +115,7 @@ async def gamecheck():
             else:
                 dir = f"./files/{gameweather}/{gametime}.mp3"
         playcount = playcount + 1
-        os.system(f"ffmpeg -i    -listen 1 -method GET -c copy -f MP3 http://0.0.0.0:5000/main.mp3")
+        os.system(f"ffmpeg -i  https://cloud.oscie.net/acdp/{gameweather}/snow/{gametime}.mp3  -listen 1 -method GET -c copy -f MP3 http://0.0.0.0:5000/main.mp3")
 async def downloader_menu():
 
     gameslist = []
