@@ -1,3 +1,4 @@
+mkdir files
 cd ./files
 wget https://cloud.oscie.net/acdp/acnh/$1/$2.mp3
 cd ..
