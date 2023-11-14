@@ -5,11 +5,7 @@ from colorama import Fore, Style, init
 from timer_py import Timer
 from pytz import timezone
 from threading import Thread
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-import subprocess
 import pytz
-import http.server
-import socketserver
 init()
 
 load_dotenv()
@@ -83,6 +79,7 @@ async def getweather():
 
 
 async def gamecheck():
+    getweather()
     global downloadedaudio
     global playcount
     playcount = 0
@@ -121,7 +118,7 @@ async def gamecheck():
             else:
                 dir = f"./files/{gameweather}/{gametime}.mp3"
         playcount = playcount + 1
-        os.system(f"ffmpeg -i https://cloud.oscie.net/acdp/acnh/{gameweather}/{gametime}.mp3 -listen 1 -method GET -c copy -f MP3 http://0.0.0.0:5000/main.mp3")
+        os.system(f"ffmpeg -i    -listen 1 -method GET -c copy -f MP3 http://0.0.0.0:5000/main.mp3")
 async def downloader_menu():
 
     gameslist = []
