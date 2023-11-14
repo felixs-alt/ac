@@ -4,5 +4,5 @@ pydub==0.25.1
 python-dotenv
 python_weather==0.4.3
 requests==2.28.1
-timer_py==2.4.1
+timer_py
 pytz==2023.3.post1

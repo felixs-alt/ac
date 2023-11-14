@@ -2,7 +2,6 @@ import os, python_weather, asyncio, sys, time, aiohttp, requests, random
 from dotenv import load_dotenv
 from datetime import datetime
 from colorama import Fore, Style, init
-from timer_py import Timer
 from pytz import timezone
 from threading import Thread
 import pytz
@@ -27,8 +26,6 @@ if not os.path.exists(".env"):
     sys.exit(0)
 
 
-timer = Timer('Timer')
-timer.start()
 
 volume = int(os.getenv("VOLUME"))
 area = str(os.getenv("AREA"))
@@ -239,8 +236,6 @@ if __name__ == "__main__":
         print(c("\n\nExiting program...\n"))
         print("While using this app, you listened to the music " + b(str(playcount)) + " times!")
 
-        minutes = timer.elapsed(print=False) // 60
-        print("you also listened for " + b(str(int(timer.elapsed(print=False)))) + f" seconds! ({b(str(int(minutes)))} minutes)")
 
         try:
             sys.exit(0)
